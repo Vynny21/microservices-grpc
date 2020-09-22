@@ -1,21 +1,23 @@
 import path from 'path'
 import grpc from 'grpc'
-import implementation from './grpc/implementation';
+import implementation from './grpc/implementation'
 
 // Não funciona com a sintaxe es6
-const protoLoader = require('@grpc/proto-loader');
+const protoLoader = require('@grpc/proto-loader')
 
-require('./database')
+//import './database'
+
+const loadConfig = {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true,
+}
 
 const packageDefinition = protoLoader.loadSync(
   path.resolve(__dirname, 'pb', 'messages.proto'),
-  {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true,
-  }
+  loadConfig  
 );
 
 const proto = grpc.loadPackageDefinition(packageDefinition)
