@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  build-server-protos:
+    container_name: grpc-micro-protos
+    build: '.'
+    volumes:
+      - ./:/grpc-protos
+    environment:
+      NODE_ENV: development
+  
+  server-api:
+    container_name: grpc-micro-api
+    build: '.'
+    volumes:
+      - ./:/grpc-api
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - dbgrpc
+    links:
+      - dbgrpc
+    ports:
+      - '3333:3333'
+    
+  server-hidra:
+    container_name: grpc-micro-hidra
+    build: '.'
+    volumes:
+      - ./:/grpc-hidra
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - dbgrpc
+    links:
+      - dbgrpc
+    ports:
+      - '3334:33334'
+        
+  server-nix:
+    container_name: grpc-micro-nix
+    build: '.'
+    volumes:
+      - ./:/grpc-nix
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - dbgrpc
+    links:
+      - dbgrpc
+    ports:
+      - '3335:3335'
+        
+    
+  dbgrpc:
+    image: mongo:latest
+    container_name: mongodb-api
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/dbgrpc:/data/db

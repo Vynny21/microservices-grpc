@@ -1,5 +1,6 @@
 {
   "name": "backend",
+  "private": "true",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -8,5 +9,21 @@
     "dev:nix": "yarn workspace nix dev",
     "dev:hidra": "yarn workspace hidra dev",
     "dev:api": "yarn workspace api dev"
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "eslint": "^7.9.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.1.2",
+    "ts-node-dev": "^1.0.0-pre.63",
+    "tsconfig-paths": "^3.9.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "dotenv": "^8.2.0"
   }
 }

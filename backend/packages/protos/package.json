@@ -1,0 +1,41 @@
+{
+  "name": "protos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "directories": {
+    "lib": "src"
+  },
+  "files": [
+    "dist",
+    "pb"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vynnydev/microservices-grpc.git"
+  },
+  "scripts": {
+    "prebuild": "rm -rf generated && mkdir generated",
+    "build": "pbjs -t static-module -w commonjs -o generated/index.js pb/*.proto && pbts -o generated/index.d.ts generated/index.js",
+    "postbuild": "echo \"Generated files! 🚀\""
+  },
+  "bugs": {
+    "url": "https://github.com/vynnydev/microservices-grpc/issues"
+  },
+  "devDependencies": {
+    "@types/google-protobuf": "^3.7.3",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "eslint": "^7.9.0",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.5",
+    "dotenv": "^8.2.0",
+    "google-protobuf": "^3.13.0",
+    "grpc": "^1.24.3",
+    "protobufjs": "^6.10.1",
+    "protoc-gen-grpc": "^1.4.1"
+  }
+}
