@@ -2,5 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build:protos": "yarn workspace protos build",
+    "dev:nix": "yarn workspace nix dev",
+    "dev:hidra": "yarn workspace hidra dev",
+    "dev:api": "yarn workspace api dev"
+  }
 }
