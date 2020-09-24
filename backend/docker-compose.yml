@@ -51,10 +51,9 @@ services:
     ports:
       - '3335:3335'
         
-    
   dbgrpc:
     image: mongo:latest
-    container_name: mongodb-api
+    container_name: mongodb-grpc
     ports:
       - 27017:27017
     volumes:
