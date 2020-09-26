@@ -19,6 +19,12 @@ interface UserService {
   authenticate: handleUnaryCall<IAuthenticationRequest, IUserResponse>;
 }
 
+interface IUserSB {
+  email?: string;
+  username?: string;
+  password?: string;
+}
+
 const implementation: UserService = {
   async getUserById(call, callback) {
     const { id } = call.request
@@ -38,7 +44,7 @@ const implementation: UserService = {
     const { email, username, password } = call.request.user as IUser;
 
     try {
-      const user = await User.create({ email, username, password })
+      const user = await User.create<IUser>({ email, username, password })
 
       return callback(null, { user })
     } catch (error) {
@@ -52,7 +58,7 @@ const implementation: UserService = {
   },
 
   async loginUser(call, callback) {
-    const { email, password } = call.request.user as IUser;
+    const { email, password } = call.request.user as IUserSB;
 
     const user = await User.findOne({ email })
 

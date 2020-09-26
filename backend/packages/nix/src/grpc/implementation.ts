@@ -1,105 +1,67 @@
-import { handleUnaryCall } from 'grpc'
+import { handleUnaryCall } from 'grpc';
+import { isValidObjectId } from 'mongoose';
 
 import {
-  IUser,
-  IGetUserByIdRequest,
-  IUserResponse,
-  IRegisterUserRequest,
-  ILoginUserRequest,
-  ILoginResponse,
-  IAuthenticationRequest,
-} from '@protos'
+  IPurchase,
+  IGetPurchaseByIdRequest,
+  IPurchaseResponse,
+  IListPurchasesRequest,
+  IListPurchasesResponse,
+  IHandlePurchaseRequest,
+} from '@protos';
 
-import User from '../models/User'
+import Purchase from '../models/Purchase';
 
-interface UserService {
-  getUserById: handleUnaryCall<IGetUserByIdRequest, IUserResponse>;
-  registerUser: handleUnaryCall<IRegisterUserRequest, IUserResponse>;
-  loginUser: handleUnaryCall<ILoginUserRequest, ILoginResponse>;
-  authenticate: handleUnaryCall<IAuthenticationRequest, IUserResponse>;
+interface PurchaseService {
+  getPurchaseById: handleUnaryCall<IGetPurchaseByIdRequest, IPurchaseResponse>;
+  listPurchases: handleUnaryCall<IListPurchasesRequest, IListPurchasesResponse>;
+  handlePurchase: handleUnaryCall<IHandlePurchaseRequest, IPurchaseResponse>;
 }
 
-const implementation: UserService = {
-  async getUserById(call, callback) {
+const implementation: PurchaseService = {
+  async getPurchaseById(call, callback) {
     const { id } = call.request
 
-    const user = await User.findById(id).select('-password') // Excluding user password
+    if (!isValidObjectId(id))
+      return callback(null, { error: 'Malformatted Object ID' })
 
-    if (!user) {
-      return callback(null, { error: 'User not found' })
-    }
+    const purchase = await Purchase.findById(id)
 
-    return callback(null, {
-      user
-    })
-  },
-
-  async registerUser(call, callback) {
-    const { email, username, password } = call.request.user as IUser
-
-    try {
-      const user = await User.create({ email, username, password })
-
-      return callback(null, { user })
-    } catch (error) {
+    if (!purchase)
       return callback(null, {
-        error:
-          error.code === 11000
-            ? 'User already exists (name or e-mail)'
-            : 'Unknown error',
+        error: 'Purchase not found',
       })
-    }
+
+    return callback(null, { purchase })
   },
 
-  async loginUser(call, callback) {
-    const { email, password } = call.request.user as IUser
+  async listPurchases(call, callback) {
+    const { userId } = call.request
 
-    const user = await User.findOne({ email })
+    if (!userId)
+      return callback(null, {
+        error: 'User ID not provided',
+      })
 
-    if (!user) {
-      return callback(null, { error: 'User not found' })
-    }
+    const purchases = await Purchase.find({ userId })
 
-    if (!(await user.compareHash(password as string))) {
-      return callback(null, { error: 'Invalid password' })
-    }
+    if (!purchases)
+      return callback(null, {
+        error: 'Unknown error',
+      });
 
-    const token = User.generateToken(user.id)
+    return callback(null, { purchases })
+  },
+
+  async handlePurchase(call, callback) {
+    const { title, userId, value } = call.request.purchase as IPurchase
+
+    const purchase = await Purchase.create<IPurchase>({ title, value, userId })
 
     return callback(null, {
-      token
-    })
+      purchase,
+    });
   },
-
-  async authenticate(call, callback) {
-    const { token: fullToken } = call.request
-
-    if (!fullToken) {
-      return callback(null, { error: 'No token provided' })
-    }
-
-    const parts = fullToken.split(' ')
-
-    if (parts.length !== 2) {
-      return callback(null, { error: 'Token error' })
-    }
-
-    const [scheme, token] = parts
-
-    if (!/^Bearer$/i.test(scheme)) {
-      return callback(null, { error: 'Malformatted token' })
-    }
-
-    try {
-      const decoded = await User.verifyToken(token)
-
-      const user = await User.findById(decoded.id)
-
-      return callback(null, { user })
-    } catch (err) {
-      return callback(null, { error: 'Invalid token' })
-    }
-  }
-}
+};
 
 export default implementation

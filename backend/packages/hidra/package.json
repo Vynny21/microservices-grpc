@@ -1,14 +1,14 @@
 {
   "name": "hidra",
   "version": "1.0.0",
+  "description": "User Service",
   "main": "dist/index.js",
   "license": "MIT",
   "directories": {
     "lib": "src"
   },
   "files": [
-    "dist",
-    "pb"
+    "dist"
   ],
   "repository": {
     "type": "git",

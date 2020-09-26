@@ -3,7 +3,7 @@ import HidraService from '../services/hidra'
 
 interface IShowBody {
   email: string;
-  password: String;
+  password: string;
 }
 
 class SessionController {

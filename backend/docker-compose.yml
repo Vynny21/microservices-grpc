@@ -6,6 +6,7 @@ services:
     build: '.'
     volumes:
       - ./:/grpc-protos
+    restart: always
     environment:
       NODE_ENV: development
   
@@ -16,6 +17,7 @@ services:
       - ./:/grpc-api
     environment:
       NODE_ENV: development
+    restart: always
     depends_on:
       - dbgrpc
     links:
@@ -30,12 +32,13 @@ services:
       - ./:/grpc-hidra
     environment:
       NODE_ENV: development
+    restart: always
     depends_on:
       - dbgrpc
     links:
       - dbgrpc
     ports:
-      - '3334:33334'
+      - '3334:3334'
         
   server-nix:
     container_name: grpc-micro-nix
@@ -44,6 +47,7 @@ services:
       - ./:/grpc-nix
     environment:
       NODE_ENV: development
+    restart: always
     depends_on:
       - dbgrpc
     links:
@@ -54,6 +58,7 @@ services:
   dbgrpc:
     image: mongo:latest
     container_name: mongodb-grpc
+    restart: always
     ports:
       - 27017:27017
     volumes:

@@ -12,7 +12,7 @@ class UserController {
   async show(req: Request, res: Response) {
     const id: string = req.params.id
 
-    const response = await HidraService.getUsersById({ id })
+    const response = await HidraService.getUserById({ id })
 
     return res.json(response)
   }

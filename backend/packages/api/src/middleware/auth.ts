@@ -18,7 +18,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     
     if (response.error) throw new Error(response.error)
 
-    req.userId = response.user?.is
+    req.userId = response.user?.id
 
     next()
 
