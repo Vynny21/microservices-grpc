@@ -6,18 +6,57 @@
   "license": "MIT",
   "scripts": {
     "build:protos": "yarn workspace protos build",
-    "dev:nix": "yarn workspace nix start",
-    "dev:hidra": "yarn workspace hidra start",
-    "dev:api": "yarn workspace api start"
+    "dev:api": "yarn workspace api dev",
+    "dev:hidra": "yarn workspace hidra dev",
+    "dev:nix": "yarn workspace nix dev",
+
+    "test:api": "yarn workspace api test",
+    "test:hidra": "yarn workspace hidra test",
+    "test:nix": "yarn workspace nix test",
+
+    "lint:api": "yarn workspace api lint",
+    "lint:hidra": "yarn workspace hidra lint",
+    "lint:nix": "yarn workspace nix lint",
+
+    "lint:verify:api": "yarn workspace api lint:verify",
+    "lint:verify:hidra": "yarn workspace hidra lint:verify",
+    "lint:verify:nix": "yarn workspace nix lint:verify",
+
+    "lint:fix:api": "yarn workspace api lint:fix",
+    "lint:fix:hidra": "yarn workspace hidra lint:fix",
+    "lint:fix:nix": "yarn workspace nix lint:fix",
+
+    "test:functional:api": "yarn workspace api test:functional",
+    "test:functional:hidra": "yarn workspace hidra test:functional",
+    "test:functional:nix": "yarn workspace nix test:functional",
+
+    "style:check:api": "yarn workspace api style:check",
+    "style:check:hidra": "yarn workspace hidra style:check",
+    "style:check:nix": "yarn workspace nix style:check",
+
+    "style:fix:api": "yarn workspace api style:check",
+    "style:fix:hidra": "yarn workspace hidra style:check",
+    "style:fix:nix": "yarn workspace nix style:check"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
     "@types/express": "^4.17.8",
     "@types/node": "^14.11.2",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
+    "commitizen": "^4.2.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.9.0",
+    "husky": "^4.3.0",
     "lerna": "^3.22.1",
+    "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
+    "ts-node-dev": "^1.0.0-pre.63",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.3"
   },

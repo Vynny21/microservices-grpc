@@ -15,6 +15,7 @@ interface ILoadServiceDTO {
   credentials?: grpc.ChannelCredentials;
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function loadService<ServiceType extends protobuf.rpc.Service>({
   serviceName,
   fileName,

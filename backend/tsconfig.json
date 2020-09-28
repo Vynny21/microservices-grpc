@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "lib": ["es6"],
     "module": "commonjs",
-    "declaration": true,
-    "strict": true,
-    "esModuleInterop": true,
+    "target": "es2019",
+    "sourceMap": true,    
+    "allowJs": true,                
+    "removeComments": true,               
+    "esModuleInterop": true,                 
+    "skipLibCheck": true,                    
     "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "baseUrl": ".",
+    "pretty": true,
+    "resolveJsonModule": true,
+    "types": ["node", "jest"],
+    "typeRoots" : ["./node_modules/@types", "./src/@types"],
     "paths": {
       "@services/*": ["packages/*/src"],
       "@protos": ["packages/protos/generated"]
