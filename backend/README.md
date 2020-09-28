@@ -12,6 +12,7 @@ Code Challenge - gRPC microservices
 
 ## 🚀 Technologies
 Technologies that I used to develop this api
+
 - [Node.js](https://nodejs.org/en/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Express](https://expressjs.com/pt-br/)
