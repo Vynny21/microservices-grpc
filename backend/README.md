@@ -10,6 +10,25 @@ Code Challenge - gRPC microservices
   </a>
 </p>
 
+## 🚀 Technologies
+Technologies that I used to develop this api
+- [Node.js](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Express](https://expressjs.com/pt-br/)
+- [gRPC](https://github.com/grpc)
+- [MongoDB](https://github.com/mongodb)
+- [BcryptJs](https://github.com/dcodeIO/bcrypt.js)
+- [JWT-token](https://jwt.io/)
+- [Jest](https://jestjs.io/)
+- [Husky](https://github.com/typicode/husky)
+- [Commitlint](https://github.com/conventional-changelog/commitlint)
+- [Commitizen](https://github.com/commitizen/cz-cli)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [EditorConfig](https://editorconfig.org/)
+
+
+
 ## Roadmap
 
 - [x] Microservice for User

@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@commitlint/config-conventional": "^11.0.0",
+    "ts-jest": "^26.4.0"
+  }
+}
